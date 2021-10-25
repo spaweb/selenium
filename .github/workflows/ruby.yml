@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - trunk
+      - bazelruby
   pull_request:
     branches:
       - trunk
