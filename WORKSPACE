@@ -260,25 +260,24 @@ load("//common:repositories.bzl", "pin_browsers")
 pin_browsers()
 
 http_archive(
-    name = "coinbase_rules_ruby",
-    sha256 = "f83da569318a6af9f1bd2d320d747c6717e4f8a1d30eb7f9d4e793939b62144e",
-    strip_prefix = "rules_ruby-4239b06d1af6c9f036a74e2c6c61213d5f19e487",
-    url = "https://github.com/p0deje/rules_ruby/archive/4239b06d1af6c9f036a74e2c6c61213d5f19e487.tar.gz",
+    name = "bazelruby_rules_ruby",
+    sha256 = "0a6126bc228c7c9cf88c23f7af6271712affac56a55ed94c7ce141ce62c529be",
+    strip_prefix = "rules_ruby-1-a1f397e6beae9df913b6dc43c2c8d3d49f9030d1",
+    url = "https://github.com/p0deje/rules_ruby-1/archive/a1f397e6beae9df913b6dc43c2c8d3d49f9030d1.tar.gz",
 )
 
 load(
-    "@coinbase_rules_ruby//ruby:deps.bzl",
-    "ruby_register_toolchains",
+    "@bazelruby_rules_ruby//ruby:deps.bzl",
     "rules_ruby_dependencies",
+    "rules_ruby_select_sdk",
 )
 
 rules_ruby_dependencies()
+rules_ruby_select_sdk(version = "host")
 
-ruby_register_toolchains()
+load("@bazelruby_rules_ruby//ruby:defs.bzl", "ruby_bundle")
 
-load("@coinbase_rules_ruby//ruby:defs.bzl", "rb_bundle")
-
-rb_bundle(
+ruby_bundle(
     name = "bundle",
     srcs = [
         "//:rb/lib/selenium/devtools/version.rb",
@@ -286,6 +285,5 @@ rb_bundle(
         "//:rb/selenium-devtools.gemspec",
         "//:rb/selenium-webdriver.gemspec",
     ],
-    bundler_version = "2.1.4",
     gemfile = "//:rb/Gemfile",
 )
