@@ -150,14 +150,14 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-      - uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/bazel-disk
-            ~/.cache/bazel-repo
-          key: ${{ runner.os }}-bazel-ruby-unit-test-${{ matrix.ruby }}-${{ hashFiles('**/BUILD.bazel') }}
-          restore-keys: |
-            ${{ runner.os }}-bazel-ruby-unit-test-${{ matrix.ruby }}-
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.cache/bazel-disk
+      #       ~/.cache/bazel-repo
+      #     key: ${{ runner.os }}-bazel-ruby-unit-test-${{ matrix.ruby }}-${{ hashFiles('**/BUILD.bazel') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-bazel-ruby-unit-test-${{ matrix.ruby }}-
       - uses: ./.github/actions/setup-bazelisk
       - uses: ./.github/actions/bazel
         with:
